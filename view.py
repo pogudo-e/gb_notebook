@@ -3,14 +3,16 @@ import controller
 
 def view_contacts():
     ''' Show full contact list '''
-    file1 = open(controller.file_name(), "r")
-    file_contents = file1.readlines()
+    file_contents = controller.contact_array()
     if len(file_contents) == 0:
         print("Ой, кажется тут пусто :(")
     else:
-        for line in file_contents:
-            print(line, end='')
-    file1.close
+        print()
+        for i in range(0, len(file_contents)):
+            for i2 in range(0, len(file_contents[i])):
+                print(file_contents[i][i2], end=' ')
+            print()
+    print()
 
 
 def menu():
