@@ -1,10 +1,23 @@
 import time
+import os
 
 def file_name():
     '''DATABASE . TXT'''
     return 'database.txt'
 
 # Заглушки
+
+def export_contacts():
+    dir_name = 'export/'
+    i == 1
+    while os.path.exists(dir_name + f'export{i}.txt'):
+        i += 1
+
+    new_path = dir_name + f'export{i}.txt'
+    with open('database.txt', 'r') as d, open(new_path, 'w') as e:
+        e.write(d.read())
+    print('Экспорт прошел успешно :)')
+
 def import_contacts(n):
     print("ok", n)
 
@@ -14,9 +27,17 @@ def exel_create():
 def json_create():
     print("ok")
 
-def find_contact():
-    ''' Для поиска '''
-    print("ok")
+def find_contact(contact_id):
+    is_in_file = False
+    with open('database.txt', 'r') as f:
+        for line in f:
+            contacts = line.strip().split()
+            if contact_id == contacts[0]:
+                is_in_file = True
+                print(line)
+                break
+        if not is_in_file:
+            print('Контакт не найден')
 
 
 def add_contact():	
@@ -29,7 +50,21 @@ def add_contact():
     file1.close
     print( "Контакт:\n " + contact + "\nУспешно добавлен!")
 
+def del_contact(contact_id):
+    is_in_file = False
+    with open('database.txt', 'r+') as f:
+        contacts = f.readlines()
+        for i, contact in enumerate(contacts):
+            if contact[0] == contact_id:
+                is_in_file = True
+                del_contact = contacts.pop(i)
+                break
 
+        f.writelines(contacts)
+        if is_in_file:
+            print(f'Контакт:\n {del_contact} \nУспешно удалён!')
+        else:
+            print('Контакт не найден')
 
 
 def contact_array():
