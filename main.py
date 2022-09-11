@@ -22,14 +22,18 @@ def menu():
         ent = input("Нажмите Enter что бы продолжить ...")
         menu()
     elif choice == '4':
-        controller.edit_contact()
+        contact_id = input('Введите id: ')
+        name = input('Введите новое имя: ')
+        phone = input('Введите новый номер телефона: ')
+        email = input('Введите новый E-mail: ')
+        controller.edit_contact(contact_id, name, phone, email)
         ent = input("Нажмите Enter что бы продолжить ...")
         menu()
     elif choice == '5':
         controller.del_contact(input("Введите id: "))
         menu()
     elif choice == '6':
-        controller.import_contacts(input("\n\n\nВведите пусть к импортируемому файлу: "))
+        controller.import_contacts(input("\n\n\nВведите путь к импортируемому файлу: "))
         menu()
     elif choice == '7':
         sub_menu_export()
