@@ -32,7 +32,6 @@ def find_contact(contact_id):
             if contact_id == contacts[0]:
                 is_in_file = True
                 print(line)
-                break
         if not is_in_file:
             print('Контакт не найден')
 
@@ -54,23 +53,46 @@ def add_contact(name, phone, email):
 
 def del_contact(contact_id):
     is_in_file = False
-    with open('database.txt', 'r+') as f:
-        contacts = f.readlines()
-        for i, contact in enumerate(contacts):
-            if contact[0] == contact_id:
+    with open('database.txt', 'r') as f:
+        contacts = []
+        for contact in f:
+            contact_lst = contact.split()
+            if contact_lst[0] == contact_id:
+                contact_to_del = contact 
                 is_in_file = True
-                del_contact = contacts.pop(i)
-                break
+            else:
+                contacts.append(contact)
 
+    with open('database.txt', 'w') as f:
         f.writelines(contacts)
         if is_in_file:
-            print(f'Контакт:\n {del_contact} \nУспешно удалён!')
+            print(f'Контакт:\n {contact_to_del} \nУспешно удалён!')
+            logger.del_logger(contact_to_del)
         else:
             print('Контакт не найден')
 
 # Надо бы сделать как нибудь
-def edit_contact():
-    print('\nОй, кажется эту штуку мы еще не сделали (^-^)\n')
+def edit_contact(contact_id, name, phone, email):
+    is_in_file = False
+    with open('database.txt', 'r') as f:
+        contacts = ''
+        for contact in f:
+            contact_lst = contact.split()
+            if contact_lst[0] == contact_id:
+                contact_to_edit = contact_id + ' ' + name + ' ' + phone + ' ' + email + '\n'
+                contacts += contact_to_edit
+                is_in_file = True
+            else:
+                contacts += contact
+
+    with open('database.txt', 'w') as f:
+        f.write(contacts)
+        if is_in_file:
+            print(f'Контакт:\n {contact_to_edit} \nУспешно изменён!')
+            logger.edit_logger(contact_to_edit)
+        else:
+            print('Контакт не найден')  
+
 
 # На вход получает файл и возвращает двумерный массив
 def array(file):
