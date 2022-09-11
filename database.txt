@@ -1,4 +1,3 @@
-id name phone mail
 1 Андрей +7(999)123-45-67 an@mail.ru
 2 Екатерина +7(999)223-45-67 ek@mail.ru
 3 Анастасия +7(999)323-45-67 ana@mail.ru
@@ -9,3 +8,5 @@ id name phone mail
 8 Максим +7(999)823-45-67 max@gmail.ru
 9 Мария +7(999)923-45-67 mar@gmail.ru
 10 Анастасия +7(999)224-45-67 anasteisha@gmail.ru
+11 Женя +7(999)224-45-67 evg@mail.ru
+12 Михаил +7(999)623-45-67 mi@gmail.ru

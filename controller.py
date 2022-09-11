@@ -1,11 +1,11 @@
 import time
 import os
+import logger
 
+# Имя файла БД. В последующем можно добавить настройки с возможностью смены файла
 def file_name():
     '''DATABASE . TXT'''
     return 'database.txt'
-
-# Заглушки
 
 def export_contacts():
     dir_name = 'export/'
@@ -17,9 +17,6 @@ def export_contacts():
     with open('database.txt', 'r') as d, open(new_path, 'w') as e:
         e.write(d.read())
     print('Экспорт прошел успешно :)')
-
-def import_contacts(n):
-    print("ok", n)
 
 def exel_create():
     print("ok")
@@ -39,14 +36,19 @@ def find_contact(contact_id):
         if not is_in_file:
             print('Контакт не найден')
 
+# На вход получает пусть к файлу формата: Имя Телефон Емаил (через пробелы). Построчно записывает эти значения в БД
+def import_contacts(name):
+    db = array(name)
+    for i in range(0, len(db)):
+            add_contact(db[i][0], db[i][1], db[i][2])
+    print('Импорт заверщен успешно.')
 
-def add_contact():	
-    name = input('Введите имя: ')
-    phone = input('Введите номер телефона: ')
-    email = input('Введите E-mail: ')
+# На взод получает три переменные: Имя, телефон и емаил. Присваивает уникальный идентификатор и записывает в БД
+def add_contact(name, phone, email):	
     contact = (find_id() + " " + name + " " + phone + " " + email + "\n")
     file1 = open(file_name(), "a+")
     file1.write(contact)
+    logger.add_logger(contact)
     file1.close
     print( "Контакт:\n " + contact + "\nУспешно добавлен!")
 
@@ -66,10 +68,14 @@ def del_contact(contact_id):
         else:
             print('Контакт не найден')
 
+# Надо бы сделать как нибудь
+def edit_contact():
+    print('\nОй, кажется эту штуку мы еще не сделали (^-^)\n')
 
-def contact_array():
-    '''Full array DB objects: [[1,2,3][1,2,3][1,2,3]]'''
-    file1 = open(file_name())
+# На вход получает файл и возвращает двумерный массив
+def array(file):
+    '''Full array objects: [[1,2,3][1,2,3][1,2,3]]'''
+    file1 = open(file)
     file1.close
     res = []
     for line in file1:
@@ -77,17 +83,19 @@ def contact_array():
         res.append(arr)
     return res
 
+# Находит максимальный id из имеющихся и возвращает id+1
 def find_id():
     '''Folling the maximum identificator max < id '''
     count = 1
-    arr = contact_array()
+    arr = array(file_name())
     for i in range(0, len(arr)):
         if int(arr[i][0]) > count:
             count = int(arr[i][0])  
     return str(count+1)
 
+# Из массива формирует html файл и записывает его в папку export с именем файла: текущая дата и время.html
 def html_create():
-    mas = contact_array()
+    mas = array(file_name())
     style = '<style>table{font-family:arial,sans-serif;border-collapse:collapse;width:100%}td,th{border:1px solid #ddd;text-align:left;padding:8px}tr:nth-child(even){background-color:#ddd}</style>'
     html = '<html>\n  <head>{}</head>\n  <body>\n'.format(style)
     html += '<h2>HTML Table</h2>'
