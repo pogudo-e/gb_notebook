@@ -1,28 +1,38 @@
-import time
-import os
 import logger
+from templates.html_creater import new_html
+from templates.json_creater import new_json
+from imports.import_contacts import new_import
 
 # Имя файла БД. В последующем можно добавить настройки с возможностью смены файла
 def file_name():
     '''DATABASE . TXT'''
     return 'database.txt'
 
-def export_contacts():
-    dir_name = 'export/'
-    i == 1
-    while os.path.exists(dir_name + f'export{i}.txt'):
-        i += 1
+# def export_contacts():
+#     dir_name = 'export/'
+#     i == 1
+#     while os.path.exists(dir_name + f'export{i}.txt'):
+#         i += 1
 
-    new_path = dir_name + f'export{i}.txt'
-    with open('database.txt', 'r') as d, open(new_path, 'w') as e:
-        e.write(d.read())
-    print('Экспорт прошел успешно :)')
+#     new_path = dir_name + f'export{i}.txt'
+#     with open('database.txt', 'r') as d, open(new_path, 'w') as e:
+#         e.write(d.read())
+#     print('Экспорт прошел успешно :)')
 
 def exel_create():
-    print("ok")
+    return "ok"
 
 def json_create():
-    print("ok")
+    if new_json():
+        return "Экспорт прошел успешно"
+
+def html_create():
+    if new_html():
+        return "Экспорт прошел успешно"
+
+def import_contacts():
+    if new_import():
+        return 'Импорт прошел успешно'
 
 def find_contact(contact_id):
     is_in_file = False
@@ -33,14 +43,9 @@ def find_contact(contact_id):
                 is_in_file = True
                 print(line)
         if not is_in_file:
-            print('Контакт не найден')
+            return 'Контакт не найден'
 
-# На вход получает пусть к файлу формата: Имя Телефон Емаил (через пробелы). Построчно записывает эти значения в БД
-def import_contacts(name):
-    db = array(name)
-    for i in range(0, len(db)):
-            add_contact(db[i][0], db[i][1], db[i][2])
-    print('Импорт заверщен успешно.')
+
 
 # На взод получает три переменные: Имя, телефон и емаил. Присваивает уникальный идентификатор и записывает в БД
 def add_contact(name, phone, email):	
@@ -49,7 +54,7 @@ def add_contact(name, phone, email):
     file1.write(contact)
     logger.add_logger(contact)
     file1.close
-    print( "Контакт:\n " + contact + "\nУспешно добавлен!")
+    return "Контакт:\n " + contact + "\nУспешно добавлен!"
 
 def del_contact(contact_id):
     is_in_file = False
@@ -66,12 +71,12 @@ def del_contact(contact_id):
     with open('database.txt', 'w') as f:
         f.writelines(contacts)
         if is_in_file:
-            print(f'Контакт:\n {contact_to_del} \nУспешно удалён!')
             logger.del_logger(contact_to_del)
+            return f'Контакт:\n {contact_to_del} \nУспешно удалён!'
         else:
-            print('Контакт не найден')
+            return 'Контакт не найден'
 
-# Надо бы сделать как нибудь
+# Редактироваине контактов
 def edit_contact(contact_id, name, phone, email):
     is_in_file = False
     with open('database.txt', 'r') as f:
@@ -88,10 +93,10 @@ def edit_contact(contact_id, name, phone, email):
     with open('database.txt', 'w') as f:
         f.write(contacts)
         if is_in_file:
-            print(f'Контакт:\n {contact_to_edit} \nУспешно изменён!')
             logger.edit_logger(contact_to_edit)
+            return f'Контакт:\n {contact_to_edit} \nУспешно изменён!'
         else:
-            print('Контакт не найден')  
+            return 'Контакт не найден' 
 
 
 # На вход получает файл и возвращает двумерный массив
@@ -114,21 +119,3 @@ def find_id():
         if int(arr[i][0]) > count:
             count = int(arr[i][0])  
     return str(count+1)
-
-# Из массива формирует html файл и записывает его в папку export с именем файла: текущая дата и время.html
-def html_create():
-    mas = array(file_name())
-    style = '<style>table{font-family:arial,sans-serif;border-collapse:collapse;width:100%}td,th{border:1px solid #ddd;text-align:left;padding:8px}tr:nth-child(even){background-color:#ddd}</style>'
-    html = '<html>\n  <head>{}</head>\n  <body>\n'.format(style)
-    html += '<h2>HTML Table</h2>'
-    html += '<table>\n<tr><th>ID</th><th>Name</th><th>Phone</th><th>Email</th></tr>'
-    for i in range(0, len(mas)):
-        html += '<tr>\n<td>{}</td>\n<td>{}</td>\n<td>{}</td>\n<td>{}</td>\n</tr>'.format(mas[i][0], mas[i][1], mas[i][2], mas[i][3])
-    html += '\n</table>\n</body>\n</html>'
-    time_string = time.strftime("%m-%d-%Y-%H-%M", time.localtime())
-    t = 'export/{}.html'.format(time_string)
-    with open(t, 'w') as page:
-        page.write(html)
-    print('Экспорт прошел успешно :)')
-    return html
-

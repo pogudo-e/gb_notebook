@@ -1,9 +1,0 @@
-Карэн: Модуль logger (datetime, add, del) F - add_contact, del_contact
-Женя: Модуль main (export, import, add, del, find, view) F - запуск
-Женя: Модуль html_creater (create) F - create
-Женя: Модуль excel_creater (create) F - create
-Карэн: Модуль json_creater (create) F - create
-Карэн: Файл database (id, name, phone, mail)
-Карэн: Папка export (contacts_time)
-Модуль controller F - export_contacts (К), import_contacts (Ж), add_contact(Ж) del_contact(К) find_contact(К) view_contacts (Ж)
-

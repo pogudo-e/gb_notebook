@@ -1,7 +1,7 @@
 import json
 import time
 
-def json_create():
+def new_json():
     result = []
     with open('database.txt', 'r', encoding='utf-8') as f:
         for i, line in enumerate(f):
@@ -14,4 +14,4 @@ def json_create():
     t = 'export/{}.json'.format(time_string)
     with open(t, 'w') as page:
         page.write(result)
-    print('Экспорт прошел успешно :)')
+    return True
