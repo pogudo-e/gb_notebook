@@ -2,10 +2,12 @@ import controller
 import json_creater
 import view
 
-view.hi()
+print(view.hi())
 
 def menu():
-    choice = view.menu()
+    
+    print(view.menu())
+    choice = input("Пожалуйста, сделайте выбор: ")
     if choice == '1':
         view.view_contacts() 
         ent = input("Нажмите Enter что бы продолжить ...")
@@ -49,12 +51,10 @@ def menu():
 def sub_menu_export():
     choice = view.sub_menu_export()
     if choice == '1':
-        controller.exel_create()
-    elif choice == '2':
         controller.html_create()
-    elif choice == '3':
+    elif choice == '2':
         json_creater.json_create()
-    elif choice == '4':
+    elif choice == '3':
         return
     else:
         print("Ошибка ввода. Пожалуйста выберите [от 1 до 4]\n")

@@ -7,16 +7,16 @@ def file_name():
     '''DATABASE . TXT'''
     return 'database.txt'
 
-def export_contacts():
-    dir_name = 'export/'
-    i == 1
-    while os.path.exists(dir_name + f'export{i}.txt'):
-        i += 1
+# def export_contacts():
+#     dir_name = 'export/'
+#     i == 1
+#     while os.path.exists(dir_name + f'export{i}.txt'):
+#         i += 1
 
-    new_path = dir_name + f'export{i}.txt'
-    with open('database.txt', 'r') as d, open(new_path, 'w') as e:
-        e.write(d.read())
-    print('Экспорт прошел успешно :)')
+#     new_path = dir_name + f'export{i}.txt'
+#     with open('database.txt', 'r') as d, open(new_path, 'w') as e:
+#         e.write(d.read())
+#     print('Экспорт прошел успешно :)')
 
 def exel_create():
     print("ok")
@@ -26,21 +26,23 @@ def json_create():
 
 def find_contact(contact_id):
     is_in_file = False
+    res = ''
     with open('database.txt', 'r') as f:
         for line in f:
             contacts = line.strip().split()
             if contact_id == contacts[0]:
                 is_in_file = True
-                print(line)
+                res = line
         if not is_in_file:
-            print('Контакт не найден')
+            res = 'Контакт не найден'
+    return res
 
 # На вход получает пусть к файлу формата: Имя Телефон Емаил (через пробелы). Построчно записывает эти значения в БД
 def import_contacts(name):
     db = array(name)
     for i in range(0, len(db)):
             add_contact(db[i][0], db[i][1], db[i][2])
-    print('Импорт заверщен успешно.')
+    return 'Импорт заверщен успешно.'
 
 # На взод получает три переменные: Имя, телефон и емаил. Присваивает уникальный идентификатор и записывает в БД
 def add_contact(name, phone, email):	
@@ -49,10 +51,11 @@ def add_contact(name, phone, email):
     file1.write(contact)
     logger.add_logger(contact)
     file1.close
-    print( "Контакт:\n " + contact + "\nУспешно добавлен!")
+    return
 
 def del_contact(contact_id):
     is_in_file = False
+    res = ''
     with open('database.txt', 'r') as f:
         contacts = []
         for contact in f:
@@ -66,10 +69,11 @@ def del_contact(contact_id):
     with open('database.txt', 'w') as f:
         f.writelines(contacts)
         if is_in_file:
-            print(f'Контакт:\n {contact_to_del} \nУспешно удалён!')
+            res = f'Контакт:\n {contact_to_del} \nУспешно удалён!'
             logger.del_logger(contact_to_del)
         else:
-            print('Контакт не найден')
+            res = 'Контакт не найден'
+    return res
 
 # Надо бы сделать как нибудь
 def edit_contact(contact_id, name, phone, email):
