@@ -1,5 +1,4 @@
 import time
-import os
 import logger
 
 # Имя файла БД. В последующем можно добавить настройки с возможностью смены файла
@@ -17,12 +16,6 @@ def file_name():
 #     with open('database.txt', 'r') as d, open(new_path, 'w') as e:
 #         e.write(d.read())
 #     print('Экспорт прошел успешно :)')
-
-def exel_create():
-    print("ok")
-
-def json_create():
-    print("ok")
 
 def find_contact(contact_id):
     is_in_file = False
@@ -78,6 +71,7 @@ def del_contact(contact_id):
 # Надо бы сделать как нибудь
 def edit_contact(contact_id, name, phone, email):
     is_in_file = False
+    res = ''
     with open('database.txt', 'r') as f:
         contacts = ''
         for contact in f:
@@ -92,10 +86,11 @@ def edit_contact(contact_id, name, phone, email):
     with open('database.txt', 'w') as f:
         f.write(contacts)
         if is_in_file:
-            print(f'Контакт:\n {contact_to_edit} \nУспешно изменён!')
+            res = f'Контакт:\n {contact_to_edit} \nУспешно изменён!'
             logger.edit_logger(contact_to_edit)
         else:
-            print('Контакт не найден')  
+            res = 'Контакт не найден'
+    return res 
 
 
 # На вход получает файл и возвращает двумерный массив
@@ -133,6 +128,6 @@ def html_create():
     t = 'export/{}.html'.format(time_string)
     with open(t, 'w') as page:
         page.write(html)
-    print('Экспорт прошел успешно :)')
-    return html
+    print
+    return 'Экспорт прошел успешно :)'
 

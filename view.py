@@ -39,9 +39,9 @@ def menu():
 
 def sub_menu_export():
     print("\n\n\nДля экспорта данных пожалуйста выберите формат из представленных ниже.")
-    data = [" 1. Exel ", " 2. Html ", " 3. Json ", " 4. Назад "]   
+    data = [" 1. Html ", " 2. Json ", " 3. Назад "]   
     form = '-' * 10 + '+' + '-' * 9 + '+' + '-' * 11 
-    print(form + '\n|{0:}|{1:}|{2:}|{3:}|'.format(*data) + '\n' + form)
+    print(form + '\n|{0:}|{1:}|{2:}|'.format(*data) + '\n' + form)
     return input("Пожалуйста, сделайте выбор: ")
 
 

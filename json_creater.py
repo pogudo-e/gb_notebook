@@ -14,4 +14,4 @@ def json_create():
     t = 'export/{}.json'.format(time_string)
     with open(t, 'w') as page:
         page.write(result)
-    print('Экспорт прошел успешно :)')
+    return 'Экспорт прошел успешно :)'
