@@ -68,6 +68,53 @@ def process_mail_step(message):
     bot.send_message(chat_id, 'Успешно добавлено!\nИмя: ' + user.name + '\nТелефон: ' + str(user.phone) + '\nMail: ' + user.mail)
     print('Добавлен контакт')
 
+# Изменение контактов
+user_dict = {}
+class User:
+    def __init__(self, id):
+        self.id = id
+        self.name = None
+        self.phone = None
+        self.mail = None
+
+@bot.message_handler(commands=['edit'])
+def send_welcome(message):
+    msg = bot.reply_to(message, """\
+Введите id
+""")
+    bot.register_next_step_handler(msg, process_id_step)
+
+def process_id_step(message):
+    chat_id = message.chat.id
+    id = message.text
+    user = User(id)
+    user_dict[chat_id] = user
+    msg = bot.reply_to(message, 'Введите имя')
+    bot.register_next_step_handler(msg, process_name_step)
+
+
+def process_name_step(message):
+    chat_id = message.chat.id
+    user = user_dict[chat_id]
+    user.name = message.text
+    msg = bot.reply_to(message, 'Введите номер')
+    bot.register_next_step_handler(msg, process_phone_step)
+
+
+def process_phone_step(message):
+    chat_id = message.chat.id
+    user = user_dict[chat_id]
+    user.phone = message.text
+    msg = bot.reply_to(message, 'Введите mail')
+    bot.register_next_step_handler(msg, process_mail_step)
+
+def process_mail_step(message):
+    chat_id = message.chat.id
+    user = user_dict[chat_id]
+    user.mail = message.text
+    res = edit_contact(user.id, user.name, user.phone, user.mail)
+    bot.send_message(chat_id, res)
+    print('Отредактирован контакт')
 
 
 # Удаление контатов
