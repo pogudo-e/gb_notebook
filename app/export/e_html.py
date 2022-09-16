@@ -13,4 +13,4 @@ def e_html(mas):
     with open(t, 'w') as page:
         page.write(html)
     print
-    return 'Экспорт прошел успешно :)'
+    return True

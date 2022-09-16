@@ -1,8 +1,9 @@
-from view import *
+from view_bot import *
 from controller import *
 import telebot
+from api import *
 
-bot = telebot.TeleBot("5476194400:AAE9AhXJXQcBuyGe2moWYXqkHQ5xfgLAuyk")
+bot = telebot.TeleBot(get_api())
 
 # Приветственное сообщение при запуске бота
 @bot.message_handler(commands=['start'])
