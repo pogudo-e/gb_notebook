@@ -50,9 +50,11 @@ def menu():
 def sub_menu_export():
     choice = view.sub_menu_export()
     if choice == '1':
-        print(controller.html_create())
+        prin, lib = controller.html_create()
+        print(prin + 'С названием: ' + lib)
     elif choice == '2':
-        print(controller.json_creater())
+        prin, lib = controller.json_creater()
+        print(prin + 'С названием: ' + lib)
     elif choice == '3':
         return
     else:

@@ -7,8 +7,6 @@ from app.view_contacts import *
 def view_contacts():
     return view(array(file_name()))
 
-
-
 def find_contact(contact_id):
     is_in_file = False
     res = ''
@@ -27,7 +25,7 @@ def import_contacts(name):
     db = array(name)
     for i in range(0, len(db)):
             add_contact(db[i][0], db[i][1], db[i][2])
-    return 'Импорт заверщен успешно.'
+    return 'Импорт завершен успешно.'
 
 # На взод получает три переменные: Имя, телефон и емаил. Присваивает уникальный идентификатор и записывает в БД
 def add_contact(name, phone, email):	
@@ -87,7 +85,7 @@ def edit_contact(contact_id, name, phone, email):
 def html_create():
     inf, loc = e_html(array(file_name()))
     if inf:
-        return 'Успешно', loc
+        return 'Файл успешно сгенерирован', loc
     else:
         return 'error'
 
@@ -95,6 +93,6 @@ def json_creater():
     # return e_json(file_name())
     inf, loc = e_json(file_name())
     if inf:
-        return 'Успешно', loc
+        return 'Файл успешно сгенерирован', loc
     else:
         return 'error'
