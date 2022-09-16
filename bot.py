@@ -1,10 +1,28 @@
+from email import message
+from imaplib import Commands
 from view_bot import *
 from controller import *
 import telebot
 from api import *
+from telebot.types import InlineKeyboardMarkup, InlineKeyboardButton
+
 
 bot = telebot.TeleBot(get_api())
 
+
+# bot.send_document(message.chat.id, open(r'.txt, 'rb'))
+@bot.message_handler(commands=['export_html'])
+def send_export(message):
+    res, loc = html_create()
+    bot.send_message(message.chat.id, res)
+    bot.send_document(message.chat.id, open(loc, 'rb'))
+
+# bot.send_document(message.chat.id, open(r'.txt, 'rb'))
+@bot.message_handler(commands=['export_json'])
+def send_export(message):
+    res, loc = json_creater()
+    bot.send_message(message.chat.id, res)
+    bot.send_document(message.chat.id, open(loc, 'rb'))
 
 # Приветственное сообщение при запуске бота
 @bot.message_handler(commands=['start'])
@@ -170,6 +188,8 @@ bot.set_my_commands(
         telebot.types.BotCommand("/find", "Поиск контактов"),
         telebot.types.BotCommand("/add", "Добавить контакт"),
         telebot.types.BotCommand("/del", "Удалить контакт"),
+        telebot.types.BotCommand("/export_html", "Экспорт в HTML"),
+        telebot.types.BotCommand("/export_json", "Экспорт в JSON"),
         telebot.types.BotCommand("/help", "Информация о командах")
     ],
 )

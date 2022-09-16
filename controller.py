@@ -85,11 +85,16 @@ def edit_contact(contact_id, name, phone, email):
     return res 
 
 def html_create():
-    inf = e_html(array(file_name()))
+    inf, loc = e_html(array(file_name()))
     if inf:
-        return 'Успешно'
+        return 'Успешно', loc
     else:
         return 'error'
 
 def json_creater():
-    return e_json(file_name())
+    # return e_json(file_name())
+    inf, loc = e_json(file_name())
+    if inf:
+        return 'Успешно', loc
+    else:
+        return 'error'

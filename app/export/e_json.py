@@ -14,4 +14,4 @@ def e_json(file_name):
     t = 'export/{}.json'.format(time_string)
     with open(t, 'w') as page:
         page.write(result)
-    return 'Экспорт прошел успешно :)'
+    return True, t

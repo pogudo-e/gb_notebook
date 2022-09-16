@@ -12,5 +12,4 @@ def e_html(mas):
     t = 'export/{}.html'.format(time_string)
     with open(t, 'w') as page:
         page.write(html)
-    print
-    return True
+    return True, t
