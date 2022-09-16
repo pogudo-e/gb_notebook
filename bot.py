@@ -20,15 +20,14 @@ def send_menu(message):
 def send_view(message):
     chat_id = message.chat.id
     bot.send_message(chat_id, view_contacts())
-    bot.send_message(chat_id, 'Что-нибудь еще?\n' + menu_bot())
+    print('Просмотр контактов')
 
 # Инфо о командах
 @bot.message_handler(commands=['help'])
 def send_help(message):
     chat_id = message.chat.id
     bot.send_message(chat_id, help())
-    bot.send_message(chat_id, 'Что-нибудь еще?\n' + menu_bot())
-
+    print('Информация о командах')
 
 # Добавление контактов
 user_dict = {}
@@ -67,6 +66,7 @@ def process_mail_step(message):
     user.mail = message.text
     add_contact(user.name, user.phone, user.mail)
     bot.send_message(chat_id, 'Успешно добавлено!\nИмя: ' + user.name + '\nТелефон: ' + str(user.phone) + '\nMail: ' + user.mail)
+    print('Добавлен контакт')
 
 
 
@@ -81,7 +81,7 @@ def delete_contacts(message):
 def process_del_step(message):
     chat_id = message.chat.id
     bot.send_message(chat_id, del_contact(str(message.text)))
-    bot.send_message(chat_id, 'Что-нибудь еще?\n' + menu_bot())
+    print('Удален контакт')
 
 
 # Поиск контатов
@@ -95,6 +95,7 @@ def find_contacts(message):
 def process_find_step(message):
     chat_id = message.chat.id
     bot.send_message(chat_id, find_contact(str(message.text)))
+    print('Произведен поиск контакта')
 
 
 # Импорт контактов. Просто отправляешь боту файл
@@ -110,9 +111,19 @@ def upload_doc(message):
         new_file.write(doc_as_file)
     msg = import_contacts(f'{doc_name}')
     bot.send_message(message.chat.id, msg)
+    print('Импортирован документ')
 
+bot.set_my_commands(
+    commands=[
+        telebot.types.BotCommand("/start", "Запуск бота"),
+        telebot.types.BotCommand("/menu", "Меню бота"),
+        telebot.types.BotCommand("/view", "Просмотр контактов"),
+        telebot.types.BotCommand("/find", "Поиск контактов"),
+        telebot.types.BotCommand("/add", "Добавить контакт"),
+        telebot.types.BotCommand("/del", "Удалить контакт"),
+        telebot.types.BotCommand("/help", "Информация о командах")
+    ],
+)
 
-
-
-
+print('бот запущен!')
 bot.infinity_polling()
