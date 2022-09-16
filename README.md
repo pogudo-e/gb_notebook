@@ -32,6 +32,10 @@
 
         git clone https://github.com/pogudo-e/gb_notebook
 
+-  Перейти в папку с проектом
+        
+        cd gb_notebook
+
 - В консоли ввести команду 
         
         python3 bot.py
