@@ -30,7 +30,7 @@
 ### Для запуска с помощью консоли:
 - Скачать проект в локальный репозиторий с помощью команды:
 
-        git clone https://github.com/karenyaylyan/gb_notebook.git
+        git clone https://github.com/pogudo-e/gb_notebook
 
 - В консоли ввести команду 
         
