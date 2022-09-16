@@ -1,9 +1,9 @@
 import json
 import time
 
-def json_create():
+def e_json(file_name):
     result = []
-    with open('database.txt', 'r', encoding='utf-8') as f:
+    with open(file_name, 'r', encoding='utf-8') as f:
         for i, line in enumerate(f):
             if i == 0:
                 continue

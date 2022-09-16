@@ -1,21 +1,21 @@
-import time
 import logger
+from app.core import *
+from app.export.e_html import *
+from app.export.e_json import *
 
-# Имя файла БД. В последующем можно добавить настройки с возможностью смены файла
-def file_name():
-    '''DATABASE . TXT'''
-    return 'database.txt'
-
-# def export_contacts():
-#     dir_name = 'export/'
-#     i == 1
-#     while os.path.exists(dir_name + f'export{i}.txt'):
-#         i += 1
-
-#     new_path = dir_name + f'export{i}.txt'
-#     with open('database.txt', 'r') as d, open(new_path, 'w') as e:
-#         e.write(d.read())
-#     print('Экспорт прошел успешно :)')
+def view_contacts():
+    ''' Show full contact list '''
+    res = ''
+    file_contents = array(file_name())
+    if len(file_contents) == 0:
+        res = "Ой, кажется тут пусто :("
+    else:
+        print()
+        for i in range(0, len(file_contents)):
+            for i2 in range(0, len(file_contents[i])):
+                res += file_contents[i][i2] + ' '
+            res += '\n'
+    return res
 
 def find_contact(contact_id):
     is_in_file = False
@@ -92,42 +92,8 @@ def edit_contact(contact_id, name, phone, email):
             res = 'Контакт не найден'
     return res 
 
-
-# На вход получает файл и возвращает двумерный массив
-def array(file):
-    '''Full array objects: [[1,2,3][1,2,3][1,2,3]]'''
-    file1 = open(file)
-    file1.close
-    res = []
-    for line in file1:
-        arr = line.split()
-        res.append(arr)
-    return res
-
-# Находит максимальный id из имеющихся и возвращает id+1
-def find_id():
-    '''Folling the maximum identificator max < id '''
-    count = 1
-    arr = array(file_name())
-    for i in range(0, len(arr)):
-        if int(arr[i][0]) > count:
-            count = int(arr[i][0])  
-    return str(count+1)
-
-# Из массива формирует html файл и записывает его в папку export с именем файла: текущая дата и время.html
 def html_create():
-    mas = array(file_name())
-    style = '<style>table{font-family:arial,sans-serif;border-collapse:collapse;width:100%}td,th{border:1px solid #ddd;text-align:left;padding:8px}tr:nth-child(even){background-color:#ddd}</style>'
-    html = '<html>\n  <head>{}</head>\n  <body>\n'.format(style)
-    html += '<h2>HTML Table</h2>'
-    html += '<table>\n<tr><th>ID</th><th>Name</th><th>Phone</th><th>Email</th></tr>'
-    for i in range(0, len(mas)):
-        html += '<tr>\n<td>{}</td>\n<td>{}</td>\n<td>{}</td>\n<td>{}</td>\n</tr>'.format(mas[i][0], mas[i][1], mas[i][2], mas[i][3])
-    html += '\n</table>\n</body>\n</html>'
-    time_string = time.strftime("%m-%d-%Y-%H-%M", time.localtime())
-    t = 'export/{}.html'.format(time_string)
-    with open(t, 'w') as page:
-        page.write(html)
-    print
-    return 'Экспорт прошел успешно :)'
+    e_html(array(file_name()))
 
+def json_creater():
+    e_json(file_name())

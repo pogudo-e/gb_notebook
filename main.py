@@ -1,5 +1,5 @@
 import controller
-import json_creater
+import app.export.e_json as e_json
 import view
 
 print(view.hi())
@@ -9,7 +9,7 @@ def menu():
     print(view.menu())
     choice = input("Пожалуйста, сделайте выбор: ")
     if choice == '1':
-        print(view.view_contacts()) 
+        print(controller.view_contacts()) 
         ent = input("Нажмите Enter что бы продолжить ...")
         menu()
     elif choice == '2':
@@ -53,7 +53,7 @@ def sub_menu_export():
     if choice == '1':
         print(controller.html_create())
     elif choice == '2':
-        print(json_creater.json_create())
+        print(controller.json_create())
     elif choice == '3':
         return
     else:
