@@ -1,6 +1,5 @@
 import controller
-import app.export.e_json as e_json
-import view
+import view_console as view
 
 print(view.hi())
 
@@ -53,7 +52,7 @@ def sub_menu_export():
     if choice == '1':
         print(controller.html_create())
     elif choice == '2':
-        print(controller.json_create())
+        print(controller.json_creater())
     elif choice == '3':
         return
     else:

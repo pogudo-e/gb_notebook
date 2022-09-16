@@ -1,21 +1,13 @@
-import logger
+import app.logger as logger
 from app.core import *
 from app.export.e_html import *
 from app.export.e_json import *
+from app.view_contacts import *
 
 def view_contacts():
-    ''' Show full contact list '''
-    res = ''
-    file_contents = array(file_name())
-    if len(file_contents) == 0:
-        res = "Ой, кажется тут пусто :("
-    else:
-        print()
-        for i in range(0, len(file_contents)):
-            for i2 in range(0, len(file_contents[i])):
-                res += file_contents[i][i2] + ' '
-            res += '\n'
-    return res
+    return view(array(file_name()))
+
+
 
 def find_contact(contact_id):
     is_in_file = False
@@ -93,7 +85,11 @@ def edit_contact(contact_id, name, phone, email):
     return res 
 
 def html_create():
-    e_html(array(file_name()))
+    inf = e_html(array(file_name()))
+    if inf:
+        return 'Успешно'
+    else:
+        return 'error'
 
 def json_creater():
-    e_json(file_name())
+    return e_json(file_name())
