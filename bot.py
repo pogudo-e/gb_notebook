@@ -5,15 +5,18 @@ from api import *
 
 bot = telebot.TeleBot(get_api())
 
+
 # Приветственное сообщение при запуске бота
 @bot.message_handler(commands=['start'])
 def send_welcome(message):
 	bot.send_message(message.chat.id, hi() + '\n' + 'Предлагаю начать с команды меню: /menu\nА вот и само меню:\n' + menu_bot())
 
+
 # Меню со списком команд
 @bot.message_handler(commands=['menu'])
 def send_menu(message):
     bot.send_message(message.chat.id, menu_bot())
+
 
 # Вывод списка контактов
 @bot.message_handler(commands=['view'])
@@ -22,12 +25,14 @@ def send_view(message):
     bot.send_message(chat_id, view_contacts())
     print('Просмотр контактов')
 
+
 # Инфо о командах
 @bot.message_handler(commands=['help'])
 def send_help(message):
     chat_id = message.chat.id
     bot.send_message(chat_id, help())
     print('Информация о командах')
+
 
 # Добавление контактов
 user_dict = {}
@@ -52,7 +57,6 @@ def process_name_step(message):
     msg = bot.reply_to(message, 'Введите номер')
     bot.register_next_step_handler(msg, process_phone_step)
 
-
 def process_phone_step(message):
     chat_id = message.chat.id
     user = user_dict[chat_id]
@@ -67,6 +71,7 @@ def process_mail_step(message):
     add_contact(user.name, user.phone, user.mail)
     bot.send_message(chat_id, 'Успешно добавлено!\nИмя: ' + user.name + '\nТелефон: ' + str(user.phone) + '\nMail: ' + user.mail)
     print('Добавлен контакт')
+
 
 # Изменение контактов
 user_dict = {}
@@ -92,14 +97,12 @@ def process_id_step(message):
     msg = bot.reply_to(message, 'Введите имя')
     bot.register_next_step_handler(msg, process_name_step)
 
-
 def process_name_step(message):
     chat_id = message.chat.id
     user = user_dict[chat_id]
     user.name = message.text
     msg = bot.reply_to(message, 'Введите номер')
     bot.register_next_step_handler(msg, process_phone_step)
-
 
 def process_phone_step(message):
     chat_id = message.chat.id
@@ -148,7 +151,6 @@ def process_find_step(message):
 # Импорт контактов. Просто отправляешь боту файл
 @bot.message_handler(content_types=['document'])
 def upload_doc(message):
-
     doc = bot.get_file(message.document.file_id)
     doc_name = message.document.file_name
     doc_path = doc.file_path
