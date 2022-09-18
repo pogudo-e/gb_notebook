@@ -1,11 +1,7 @@
-from email import message
-from imaplib import Commands
 from view_bot import *
 from controller import *
 import telebot
 from api import *
-from telebot.types import InlineKeyboardMarkup, InlineKeyboardButton
-
 
 bot = telebot.TeleBot(get_api())
 
