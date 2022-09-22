@@ -19,7 +19,7 @@ def menu():
         ent = input("Нажмите Enter что бы продолжить ...")
         menu()
     elif choice == '3':
-        print(controller.find_contact(input("Введите id: ")))
+        print(controller.find_contact(input("Введите id, Имя или номер: ")))
         ent = input("Нажмите Enter что бы продолжить ...")
         menu()
     elif choice == '4':

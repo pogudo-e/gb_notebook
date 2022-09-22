@@ -7,15 +7,16 @@ from app.view_contacts import *
 def view_contacts():
     return view(array(file_name()))
 
-def find_contact(contact_id):
+def find_contact(contact_f):
     is_in_file = False
     res = ''
+    contact_id = contact_f.lower()
     with open('database.txt', 'r') as f:
         for line in f:
             contacts = line.strip().split()
-            if contact_id == contacts[0]:
+            if contact_id in contacts[0] or contact_id in contacts[1].lower() or contact_id in contacts[2]:
                 is_in_file = True
-                res = line
+                res += line
         if not is_in_file:
             res = 'Контакт не найден'
     return res

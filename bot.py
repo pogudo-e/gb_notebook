@@ -152,13 +152,17 @@ def process_del_step(message):
 @bot.message_handler(commands=['find'])
 def find_contacts(message):
     msg = bot.reply_to(message, """\
-Введите искомый id:
+Введите id, имя или номер:
 """)
     bot.register_next_step_handler(msg, process_find_step)
 
 def process_find_step(message):
     chat_id = message.chat.id
-    bot.send_message(chat_id, find_contact(str(message.text)))
+    res = find_contact(str(message.text))
+    if res == 'Контакт не найден':
+        bot.send_message(chat_id, res)
+    else:
+        bot.send_message(chat_id, 'Вот что мне удалось найти:\n' + res)
     print('Произведен поиск контакта')
 
 
